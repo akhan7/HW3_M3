@@ -10,7 +10,7 @@ var client = redis.createClient(6379, '127.0.0.1', {})
 client.rpush('serverList', portArg)
 
 // HTTP SERVER
-var server = app.listen(3000, 'localhost', function () {
+var server = app.listen(3000, function () {
 
   var host = server.address().address
   var port = server.address().port
