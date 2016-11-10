@@ -28,6 +28,7 @@ app.get('/', function(req, res) {
 // SET Function
 app.get('/set', function(req, res){
 	client.set('myKey', '1', function(err, value){
+    console.log('key set to 1')
 		res.send(value)
 	});
 	//client.expire('myKey', 10);
@@ -35,6 +36,7 @@ app.get('/set', function(req, res){
 
 app.get('/unset', function(req, res){
   client.set('myKey', '0', function(err, value){
+    console.log('key set to 0')
     res.send(value)
   });
   //client.expire('myKey', 10);
@@ -94,8 +96,11 @@ console.log(value);
                 res.writeHead(200, {'content-type':'text/html'});
                         if(value == "1" && imagedata)
                         res.write("<h1>\n<img src='data:my_pic.jpg;base64,"+imagedata+"'/>");
+                        else if (value == '0')
+                          res.write("value of key is 0");
                         else
                                 res.write("Sorry no images uploaded!")
+
                 res.end();
                 });
         })
