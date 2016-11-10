@@ -41,7 +41,9 @@ app.get('/unset', function(req, res){
   });
   //client.expire('myKey', 10);
 })
-
+client.set('myKey', '0', function(err, value){
+    console.log('key set to 0')
+  });
 // GET Function
 app.get('/get', function(req, res){
 	client.get('myKey', function(err, value){
