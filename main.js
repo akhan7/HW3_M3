@@ -33,6 +33,13 @@ app.get('/set', function(req, res){
 	//client.expire('myKey', 10);
 })
 
+app.get('/unset', function(req, res){
+  client.set('myKey', '0', function(err, value){
+    res.send(value)
+  });
+  //client.expire('myKey', 10);
+})
+
 // GET Function
 app.get('/get', function(req, res){
 	client.get('myKey', function(err, value){
@@ -79,16 +86,19 @@ app.post('/upload',[ multer({ dest: './uploads/'}), function(req, res){
 
 // MEOW Function
 app.get('/meow', function(req, res) {
-	client.lpop('images', function(err, imagedata)
-	{
-		if (err) throw err
-		res.writeHead(200, {'content-type':'text/html'});
-		if (imagedata  && myKey=="1")
-   			res.write("<h1>\n<img src='data:my_pic.jpg;base64,"+imagedata+"'/>");
-		else
-			res.write("Sorry no images uploaded!")
-   	res.end();
-	})
+  client.lpop('images', function(err, imagedata)
+        {
+                if (err) throw err
+                client.get('myKey', function(err, value){
+console.log(value);
+                res.writeHead(200, {'content-type':'text/html'});
+                        if(value == "1" && imagedata)
+                        res.write("<h1>\n<img src='data:my_pic.jpg;base64,"+imagedata+"'/>");
+                        else
+                                res.write("Sorry no images uploaded!")
+                res.end();
+                });
+        })
 })
 
 // SPAWN Function
