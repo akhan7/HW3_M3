@@ -7,6 +7,7 @@ var portArg = process.argv[2];
 
 // REDIS
 var client = redis.createClient(6379, '127.0.0.1', {})
+client.del('serverList');
 client.rpush('serverList', 'http://127.0.0.1:' + portArg)
 
 // HTTP SERVER
