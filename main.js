@@ -7,7 +7,7 @@ var portArg = process.argv[2];
 
 // REDIS
 var client = redis.createClient(6379, '127.0.0.1', {})
-client.rpush('serverList', portArg)
+client.rpush('serverList', 'http://127.0.0.1:' + port)
 
 // HTTP SERVER
 var server = app.listen(3000, function () {
@@ -115,7 +115,7 @@ app.get('/spawn', function(req, res) {
     var server = app.listen(portArg, function () {
       var host = server.address().address
       var port = server.address().port
-      client.rpush('serverList', port)
+      client.rpush('serverList', 'http://127.0.0.1:' + port)
       console.log('Example app listening at http://%s:%s', host, port)
       
     });
