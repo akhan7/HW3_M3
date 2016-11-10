@@ -27,10 +27,10 @@ app.get('/', function(req, res) {
 
 // SET Function
 app.get('/set', function(req, res){
-	client.set('myKey', 'this message will self-destruct in 10 seconds', function(err, value){
+	client.set('myKey', '1', function(err, value){
 		res.send(value)
 	});
-	client.expire('myKey', 10);
+	//client.expire('myKey', 10);
 })
 
 // GET Function
@@ -83,7 +83,7 @@ app.get('/meow', function(req, res) {
 	{
 		if (err) throw err
 		res.writeHead(200, {'content-type':'text/html'});
-		if (imagedata)
+		if (imagedata  && myKey=="1")
    			res.write("<h1>\n<img src='data:my_pic.jpg;base64,"+imagedata+"'/>");
 		else
 			res.write("Sorry no images uploaded!")
