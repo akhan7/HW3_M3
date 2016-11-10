@@ -94,7 +94,7 @@ app.get('/meow', function(req, res) {
         {
                 if (err) throw err
                 client.get('myKey', function(err, value){
-console.log(value);
+                console.log(value);
                 res.writeHead(200, {'content-type':'text/html'});
                         if(value == "1" && imagedata)
                         res.write("<h1>\n<img src='data:my_pic.jpg;base64,"+imagedata+"'/>");
